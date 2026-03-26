@@ -40,7 +40,7 @@ Construir uma aplicação simples contendo:
 ## 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/fiap-auth-app.git
+https://github.com/LuizCamilo-Mobile/FIAP-Project-Mobile-Example.git
 ```
 
 ## 2. Acessar a pasta
