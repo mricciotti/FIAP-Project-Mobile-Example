@@ -11,14 +11,6 @@ const firebaseConfig = {
   // messagingSenderId: 'SEU_MESSAGING_SENDER_ID',
   // appId: 'SEU_APP_ID',
 
-  apiKey: "AIzaSyDgt92xf3s19QPz3sSEvlui-Lr_sC5UVYU",
-  authDomain: "fiap-aulas-14d7a.firebaseapp.com",
-  projectId: "fiap-aulas-14d7a",
-  databaseURL: 'https://fiap-aulas-14d7a-default-rtdb.firebaseio.com',
-  storageBucket: "fiap-aulas-14d7a.firebasestorage.app",
-  messagingSenderId: "347948116101",
-  appId: "1:347948116101:web:1b7185926185dcdadca1ec"
-
 };
 
 const app = initializeApp(firebaseConfig);
