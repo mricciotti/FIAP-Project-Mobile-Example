@@ -3,13 +3,13 @@ import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  // apiKey: 'SUA_API_KEY',
-  // authDomain: 'SEU_AUTH_DOMAIN',
-  // projectId: 'SEU_PROJECT_ID',
-  // databaseURL: 'SUA_DATABASE_URL'
-  // storageBucket: 'SEU_STORAGE_BUCKET',
-  // messagingSenderId: 'SEU_MESSAGING_SENDER_ID',
-  // appId: 'SEU_APP_ID',
+  apiKey: "AIzaSyAV_IAXBSf7MAUkrSNjOhA_-ptSkIZDQk0",
+  authDomain: "fiapapp-d6e0f.firebaseapp.com",
+  projectId: "fiapapp-d6e0f",
+  databaseURL: "https://fiapapp-d6e0f-default-rtdb.firebaseio.com/",
+  storageBucket: "fiapapp-d6e0f.firebasestorage.app",
+  messagingSenderId: "134183412414",
+  appId: "1:134183412414:web:2cdf414f1be5f8e09bb4ef"
 
 };
 
