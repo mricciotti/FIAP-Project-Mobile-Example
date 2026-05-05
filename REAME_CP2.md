@@ -1,3 +1,12 @@
+# INTEGRANTES
+```
+Fernanda Rocha Menon- RM554673
+Luiza Macena Dantas-RM556237
+Luan Ramos Garcia de Souza – RM 558537
+Matheus Ricciotti – RM 556930
+Matheus Bortolotto – RM 555189
+```
+
 # Documento de Melhorias Implementadas no Projeto Mobile
 
 ## 1. Melhorias implementadas
