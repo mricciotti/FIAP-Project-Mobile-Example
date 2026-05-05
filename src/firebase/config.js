@@ -18,3 +18,6 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 
 export { auth, db };
+
+// FIRE BASE URL
+// https://console.firebase.google.com/project/fiapapp-d6e0f/database/fiapapp-d6e0f-default-rtdb/data?hl=pt-br

@@ -1,22 +1,25 @@
-import { useState } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
-import { CameraView, useCameraPermissions } from 'expo-camera';
+import { useState } from "react";
+import { View, Text, Button, Alert } from "react-native";
+import { CameraView, useCameraPermissions } from "expo-camera";
 
-export default function BarcodeScannerScreen({ navigation }) {
+export default function BarcodeScannerScreen({ navigation, route }) {
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState(false);
+
+  const formData = route.params?.formData || {};
 
   function handleBarcodeScanned({ data }) {
     if (scanned) return;
 
     setScanned(true);
 
-    Alert.alert('Código lido', data, [
+    Alert.alert("Código lido", data, [
       {
-        text: 'OK',
+        text: "OK",
         onPress: () => {
-          navigation.navigate('Home', {
+          navigation.navigate("Home", {
             scannedBarcode: data,
+            formData,
           });
         },
       },
@@ -28,8 +31,8 @@ export default function BarcodeScannerScreen({ navigation }) {
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           padding: 20,
         }}
       >
@@ -43,12 +46,12 @@ export default function BarcodeScannerScreen({ navigation }) {
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           padding: 20,
         }}
       >
-        <Text style={{ fontSize: 20, marginBottom: 20, textAlign: 'center' }}>
+        <Text style={{ fontSize: 20, marginBottom: 20, textAlign: "center" }}>
           Precisamos da permissão da câmera para ler o código de barras.
         </Text>
 
@@ -77,12 +80,7 @@ export default function BarcodeScannerScreen({ navigation }) {
         </Text>
 
         {scanned && (
-          <Button
-            title="Ler novamente"
-            onPress={() => {
-              setScanned(false);
-            }}
-          />
+          <Button title="Ler novamente" onPress={() => setScanned(false)} />
         )}
       </View>
     </View>
