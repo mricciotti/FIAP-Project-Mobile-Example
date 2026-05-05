@@ -7,9 +7,10 @@ import {
   updateProduct,
 } from "../firebase/productService";
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, route }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [barcode, setBarcode] = useState("");
   const [products, setProducts] = useState([]);
   const [editingProductId, setEditingProductId] = useState(null);
 
@@ -27,9 +28,16 @@ export default function HomeScreen({ navigation }) {
     loadProducts();
   }, []);
 
+  useEffect(() => {
+    if (route.params?.scannedBarcode) {
+      setBarcode(String(route.params.scannedBarcode));
+    }
+  }, [route.params?.scannedBarcode]);
+
   function clearForm() {
     setName("");
     setPrice("");
+    setBarcode("");
     setEditingProductId(null);
   }
 
@@ -39,25 +47,23 @@ export default function HomeScreen({ navigation }) {
       return;
     }
 
+    const productData = {
+      name: name.trim(),
+      price: price.trim(),
+      barcode: barcode ? String(barcode).trim() : "",
+    };
+
     try {
       if (editingProductId) {
-        await updateProduct(editingProductId, {
-          name: name.trim(),
-          price: price.trim(),
-        });
-
+        await updateProduct(editingProductId, productData);
         Alert.alert("Sucesso", "Produto atualizado com sucesso!");
       } else {
-        await createProduct({
-          name: name.trim(),
-          price: price.trim(),
-        });
-
+        await createProduct(productData);
         Alert.alert("Sucesso", "Produto cadastrado com sucesso!");
       }
 
       clearForm();
-      loadProducts();
+      await loadProducts();
     } catch (error) {
       console.error(error);
       Alert.alert("Erro", "Não foi possível salvar o produto.");
@@ -65,8 +71,9 @@ export default function HomeScreen({ navigation }) {
   }
 
   function handleEditProduct(product) {
-    setName(product.name);
-    setPrice(product.price);
+    setName(product.name || "");
+    setPrice(product.price || "");
+    setBarcode(product.barcode || "");
     setEditingProductId(product.id);
   }
 
@@ -89,11 +96,15 @@ export default function HomeScreen({ navigation }) {
       }
 
       Alert.alert("Sucesso", "Produto excluído com sucesso!");
-      loadProducts();
+      await loadProducts();
     } catch (error) {
       console.error(error);
       Alert.alert("Erro", "Não foi possível excluir o produto.");
     }
+  }
+
+  function handleOpenScanner() {
+    navigation.navigate("BarcodeScanner");
   }
 
   return (
@@ -101,6 +112,10 @@ export default function HomeScreen({ navigation }) {
       <Text style={{ fontSize: 24, marginTop: 40, marginBottom: 20 }}>
         Bem-vindo!
       </Text>
+
+      <View style={{ marginBottom: 20 }}>
+        <Button title="Ler código de barras" onPress={handleOpenScanner} />
+      </View>
 
       <TextInput
         placeholder="Nome do produto"
@@ -119,6 +134,18 @@ export default function HomeScreen({ navigation }) {
         value={price}
         onChangeText={setPrice}
         keyboardType="numeric"
+        style={{
+          borderWidth: 1,
+          marginBottom: 10,
+          padding: 10,
+          borderRadius: 5,
+        }}
+      />
+
+      <TextInput
+        placeholder="Código de barras"
+        value={barcode}
+        onChangeText={setBarcode}
         style={{
           borderWidth: 1,
           marginBottom: 20,
@@ -157,6 +184,7 @@ export default function HomeScreen({ navigation }) {
           >
             <Text>Nome: {item.name}</Text>
             <Text>Preço: {item.price}</Text>
+            <Text>Código de barras: {item.barcode || "Não informado"}</Text>
 
             <View style={{ marginTop: 10 }}>
               <Button title="Editar" onPress={() => handleEditProduct(item)} />
